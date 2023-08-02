@@ -9,6 +9,7 @@
 :root {
   --color-main: #100e1d;
   --color-secondary: #1e213a;
+  --color-placeholder: #616475;
   --color-degree: #a09fb1;
   --color-number: #e7e7eb;
   --color-date: #88869d;
@@ -35,8 +36,80 @@ body {
   background-color: var(--color-secondary);
 }
 
+.search-nav.hidden {
+  display: none;
+}
+
+.search-nav {
+  background-color: var(--color-secondary);
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100vh;
+}
+
+.btn-close {
+  font-size: 18px;
+  color: var(--color-number);
+  text-align: right;
+  padding: 1rem;
+  border: none;
+  background-color: transparent;
+}
+
+.navSearch {
+  margin: 0 auto;
+  padding: 0.5rem;
+  background-color: transparent;
+}
+
+#search {
+  position: relative;
+  padding: 1rem 2.5rem;
+  border: 1px solid var(--color-btn-font);
+  background-color: transparent;
+}
+
+.navSearch span.material-symbols-outlined {
+  position: absolute;
+  padding: 0.5rem;
+  top: 4.3rem;
+  left: 1.5rem;
+  font-family: "Material Icons";
+  font-size: 1.25rem;
+
+  color: var(--color-btn-font);
+}
+
+.submitBtn {
+  border: none;
+  background-color: var(--color-btn-search);
+  color: var(--color-btn-font);
+  padding: 1rem 1rem;
+  margin-left: 1rem;
+  text-align: center;
+}
+
+.options {
+  padding: 0.5rem;
+}
+
+.options ul {
+  list-style-type: none;
+  color: var(--color-btn-font);
+}
+
+.options ul li {
+  padding: 1rem;
+  margin: 0.5rem 0;
+}
+
+.options ul li:hover {
+  border: 1px solid var(--color-degree);
+  margin: 1rem 0;
+}
 .header-btn {
-  padding: 0.5rem 0.3rem;
+  padding: 1rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -145,24 +218,124 @@ body {
 }
 
 .next-5-days {
-  margin: auto;
+  margin: 2rem 0;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
-  align-content: center;
+
+  text-align: center;
 
   color: var(--color-degree);
 }
 
-.daty-1 {
+.day {
+  padding: 1rem;
+  width: 35%;
   background-color: var(--color-secondary);
-  width: 10%;
-  height: auto;
   margin: 1rem;
 }
 
-.day-1 img {
+.day p {
+  color: var(--color-number);
+}
+
+.day span {
+  color: var(--color-degree);
+}
+
+.day img {
   width: 100%;
-  max-width: 30%;
+}
+
+.hightlight {
+  color: var(--color-number);
+  text-align: center;
+  padding: 1rem;
+}
+
+.hightlight h3 {
+  padding: 1rem;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 28px;
+  text-align: left;
+}
+
+.hightlights {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.hightlights div {
+  width: 95%;
+  padding: 1.5rem;
+  margin: 1rem 0;
+  background-color: var(--color-secondary);
+}
+
+.hightlights p {
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 19px;
+  letter-spacing: 0em;
+  text-align: center;
+}
+.hightlights h1 {
+  font-size: 64px;
+  font-weight: 700;
+  line-height: 75px;
+}
+
+.hightlights span {
+  font-size: 36px;
+  font-weight: 500;
+  line-height: 42px;
+}
+
+#humidity ul {
+  list-style-type: none;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 14px;
+  text-align: center;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--color-degree);
+}
+
+div.perectage-bar {
+  margin: auto;
+}
+
+.perectage-bar p {
+  color: var(--color-degree);
+  text-align: right;
+}
+
+progress {
+  accent-color: var(--color-percentage);
+  width: 100%;
+}
+
+::-webkit-progress-bar {
+  background-color: var(--color-number);
+}
+
+footer {
+  padding: 1rem;
+}
+
+footer p {
+  color: var(--color-btn-font);
+
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 17px;
+  letter-spacing: 0em;
+  text-align: center;
 }
