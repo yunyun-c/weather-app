@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
-import { images } from "./Images";
+
+import Sidebar from "./Sidebar";
+import WeatherImage from "./WeatherImage";
 
 let api_key = "d9e41930c6cec91658673cbda0952d92";
 
@@ -9,6 +11,16 @@ export default function App() {
   const [temp, setTemp] = useState(null);
   const [unit, setUnit] = useState("C");
   const [weather, setWeather] = useState("");
+
+  const [cityList, setCityList] = useState([
+    "Taipei",
+    "Chicago",
+    "New york",
+    "Tokyo",
+    "San Francisco",
+    "Austin",
+    "Seattle",
+  ]);
 
   const celsiusToFahrenheit = (temp) => {
     return (temp * 9) / 5 + 32;
@@ -21,8 +33,6 @@ export default function App() {
           `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${api_key}`
         );
         const data = await res.json();
-
-        console.log(data.weather);
 
         if (data.dt) {
           const unixTimestamp = data.dt;
@@ -37,12 +47,16 @@ export default function App() {
           setDate(formattedDate);
         }
 
+        if (data.name) {
+          setCity(data.name);
+        }
+
         if (data.main && data.main.temp) {
           setTemp((data.main.temp - 273.25).toFixed(1));
         }
 
         if (data.weather) {
-          const weatherDetail = data.weather[0].main;
+          const weatherDetail = data.weather[0].description;
           setWeather(weatherDetail);
         }
       }
@@ -55,112 +69,15 @@ export default function App() {
     <div className="App">
       <Sidebar
         city={city}
+        setCity={setCity}
         date={date}
         temp={temp}
         unit={unit}
         weather={weather}
+        cityList={cityList}
       />
       <Main />
     </div>
-  );
-}
-
-function Sidebar({ city, date, temp, unit, weather }) {
-  const [isOpen, setIsOpen] = useState(true);
-
-  return (
-    <section className="left">
-      <div className="local">
-        {isOpen ? (
-          <SearchBtn setIsOpen={setIsOpen} />
-        ) : (
-          <Search setIsOpen={setIsOpen} />
-        )}
-
-        <div className="local-weather-img">
-          <img
-            className="background-image"
-            src={images.cloudBackground}
-            alt="background"
-          ></img>
-          <div className="weather-image">
-            <WeatherImage />
-          </div>
-        </div>
-
-        <div className="details">
-          <h1 className="temperature">
-            {temp}
-            <span>°{unit}</span>
-          </h1>
-          <h2 className="type">{weather}</h2>
-          <p className="date">{date}</p>
-          <p className="location">
-            <span className="material-icons-outlined">room</span>
-            {city}
-          </p>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function WeatherImage() {
-  return <img src={images.shower} alt="weather-image" />;
-}
-
-function SearchBtn({ setIsOpen }) {
-  return (
-    <div className="header-btn">
-      <button id="btn-search-places" onClick={() => setIsOpen((open) => !open)}>
-        Seach for places
-      </button>
-      <button id="btn-target">
-        <span className="material-icons-outlined">my_location</span>
-      </button>
-    </div>
-  );
-}
-
-function Search({ setIsOpen }) {
-  const [searchInput, setSearchInput] = useState("");
-
-  return (
-    <>
-      <div className="search-nav">
-        <button
-          className="btn-close"
-          onClick={() => setIsOpen((open) => !open)}
-        >
-          X
-        </button>
-        <from className="navSearch">
-          <div>
-            <input
-              type="search"
-              id="search"
-              placeholder="search location"
-              vlaue={searchInput}
-              onChange={(e) => {
-                setSearchInput(e.target.value);
-              }}
-            />
-            <span className="material-symbols-outlined">search</span>
-            <button className="submitBtn" type="submit">
-              Search
-            </button>
-          </div>
-
-          <div className="options">
-            <ul>
-              <li>city</li>
-              <li>city</li>
-              <li>city</li>
-            </ul>
-          </div>
-        </from>
-      </div>
-    </>
   );
 }
 
