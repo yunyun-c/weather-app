@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 import Sidebar from "./Sidebar";
-import WeatherImage from "./WeatherImage";
+import WeatherImage from "../src/components/WeatherImage";
 
 let api_key = "d9e41930c6cec91658673cbda0952d92";
 
