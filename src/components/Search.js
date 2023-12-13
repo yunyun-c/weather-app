@@ -3,7 +3,8 @@ import { useState } from "react";
 export default function Search({ setIsOpen, cityList, setCity }) {
   const [searchInput, setSearchInput] = useState("");
 
-  function sumbitSearch() {
+  function sumbitSearch(e) {
+    e.preventDefault();
     setIsOpen(true);
     setCity(searchInput);
   }

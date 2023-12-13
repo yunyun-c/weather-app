@@ -1,4 +1,4 @@
-import { images } from "../src/Images";
+import { images } from "../Images";
 
 export default function WeatherImage({ weather }) {
   return (

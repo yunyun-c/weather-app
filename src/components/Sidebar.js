@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { images } from "./Images";
+import { images } from "../Images";
+import { celsiusToFahrenheit } from "../App";
 
 import WeatherImage from "./WeatherImage";
 import Search from "./Search";
@@ -38,7 +39,7 @@ export default function Sidebar({
 
         <div className="details">
           <h1 className="temperature">
-            {temp}
+            {unit === "C" ? temp : celsiusToFahrenheit(temp)}
             <span>°{unit}</span>
           </h1>
           <h2 className="type">{weather}</h2>
