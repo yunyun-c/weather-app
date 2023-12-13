@@ -35,6 +35,52 @@ export default function App() {
     setUnit(unit);
   }
 
+  function setWeatherData(data) {
+    if (data.dt) {
+      const unixTimestamp = data.dt;
+      const date = new Date(unixTimestamp * 1000);
+      const options = {
+        weekday: "long",
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+      };
+      const formattedDate = date.toLocaleDateString("en-US", options);
+      setDate(formattedDate);
+      setToday(unixTimestamp);
+    }
+
+    if (data.name) {
+      setCity(data.name);
+    }
+
+    if (data.main && data.main.temp) {
+      setTemp((data.main.temp - 273.25).toFixed(1));
+    }
+
+    if (data.weather) {
+      const weatherDetail = data.weather[0].description;
+      setWeather(weatherDetail);
+    }
+
+    if (data.wind) {
+      setWind(data.wind.speed);
+    }
+
+    if (data.main && data.main.humidity) {
+      setHumidity(data.main.humidity);
+    }
+
+    if (data.visibility) {
+      const toMiles = data.visibility * 0.000621;
+      setVisibility(toMiles);
+    }
+
+    if (data.main && data.main.pressure) {
+      setPressure(data.main.pressure);
+    }
+  }
+
   useEffect(
     function () {
       async function weatherAPI() {
@@ -42,50 +88,7 @@ export default function App() {
           `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${api_key}`
         );
         const data = await res.json();
-
-        if (data.dt) {
-          const unixTimestamp = data.dt;
-          const date = new Date(unixTimestamp * 1000);
-          const options = {
-            weekday: "long",
-            year: "numeric",
-            month: "long",
-            day: "numeric",
-          };
-          const formattedDate = date.toLocaleDateString("en-US", options);
-          setDate(formattedDate);
-          setToday(unixTimestamp);
-        }
-
-        if (data.name) {
-          setCity(data.name);
-        }
-
-        if (data.main && data.main.temp) {
-          setTemp((data.main.temp - 273.25).toFixed(1));
-        }
-
-        if (data.weather) {
-          const weatherDetail = data.weather[0].description;
-          setWeather(weatherDetail);
-        }
-
-        if (data.wind) {
-          setWind(data.wind.speed);
-        }
-
-        if (data.main && data.main.humidity) {
-          setHumidity(data.main.humidity);
-        }
-
-        if (data.visibility) {
-          const toMiles = data.visibility * 0.000621;
-          setVisibility(toMiles);
-        }
-
-        if (data.main && data.main.pressure) {
-          setPressure(data.main.pressure);
-        }
+        setWeatherData(data);
       }
       weatherAPI();
     },
@@ -104,8 +107,7 @@ export default function App() {
         cityList={cityList}
         handleUnitChnage={handleUnitChnage}
       />
-      [city, date, temp, wind, humidity, visibility, pressure] [city, date,
-      temp, wind, humidity, visibility, pressure]
+
       <Main
         wind={wind}
         humidity={humidity}
